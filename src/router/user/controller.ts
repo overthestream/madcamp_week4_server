@@ -42,10 +42,9 @@ export const putProfileImageCallback = async (req: Request, res: Response) => {
         };
         await databaseConnector(query);
         res.json({
-          loc: imageFile.location
+          loc: imageFile.location,
         });
         res.status(200);
-
       } else {
         const query = {
           str: `UPDATE GHT SET image_url = $1 WHERE user_name = $2`,
@@ -53,7 +52,7 @@ export const putProfileImageCallback = async (req: Request, res: Response) => {
         };
         await databaseConnector(query);
         res.json({
-          loc: imageFile.location
+          loc: imageFile.location,
         });
         res.status(200);
       }
@@ -62,4 +61,38 @@ export const putProfileImageCallback = async (req: Request, res: Response) => {
     console.log(err);
     res.sendStatus(500);
   }
-}
+};
+
+export const putUserText = async (req: Request, res: Response) => {
+  try {
+    console.log('server received put user text request');
+    const { newText, userName } = req.query;
+    const query = {
+      str: `UPDATE users SET user_text = $1 WHERE user_name = $2`,
+      val: [newText, userName],
+    };
+    await databaseConnector(query);
+    console.log(`${userName} now has new text: ${newText}`);
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+};
+
+export const putUserLoc = async (req: Request, res: Response) => {
+  try {
+    console.log('server received put user location request');
+    const { newLocation, userName } = req.query;
+    const query = {
+      str: `UPDATE users SET user_location = $1 WHERE user_name = $2`,
+      val: [newLocation, userName],
+    };
+    await databaseConnector(query);
+    console.log(`${userName} now has new text: ${newLocation}`);
+    res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+};
