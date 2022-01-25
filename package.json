@@ -33,8 +33,14 @@
     "typescript": "^4.5.4"
   },
   "dependencies": {
+    "@types/multer-s3": "^2.7.11",
+    "aws-sdk": "^2.1062.0",
+    "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "http": "^0.0.1-security",
+    "multer": "^1.4.4",
+    "multer-s3": "^2.10.0",
+    "path": "^0.12.7",
     "pg": "^8.7.1"
   }
 }
