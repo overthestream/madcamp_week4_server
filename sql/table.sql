@@ -30,3 +30,13 @@ CREATE TABLE GHT (
   primary key (id),
   foreign key (writer) references users(user_name)
 );
+
+CREATE TABLE GHT_reply(
+  GHT_id uuid,
+  writer varchar(12),
+  text varchar(500),
+  written_when date,
+  primary key(GHT_id, writer, text, written_when),
+  foreign key (GHT_id) references GHT(id),
+  foreign key (writer) references users(user_name)
+);

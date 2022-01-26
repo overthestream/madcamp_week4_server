@@ -38,7 +38,7 @@ export const putProfileImageCallback = async (req: Request, res: Response) => {
       if (req.query.type === '1') {
         const query = {
           str: `UPDATE users SET image_url = $1 WHERE user_name = $2`,
-          val: [imageFile.location, '이제호'],
+          val: [imageFile.location, req.query.userName],
         };
         await databaseConnector(query);
         res.json({
@@ -48,7 +48,7 @@ export const putProfileImageCallback = async (req: Request, res: Response) => {
       } else {
         const query = {
           str: `UPDATE GHT SET image_url = $1 WHERE user_name = $2`,
-          val: [imageFile.location, '이제호'],
+          val: [imageFile.location, req.query.userName],
         };
         await databaseConnector(query);
         res.json({
@@ -91,6 +91,22 @@ export const putUserLoc = async (req: Request, res: Response) => {
     await databaseConnector(query);
     console.log(`${userName} now has new text: ${newLocation}`);
     res.sendStatus(200);
+  } catch (err) {
+    console.log(err);
+    res.sendStatus(500);
+  }
+};
+
+export const getUserList = async (req: Request, res: Response) => {
+  try {
+    console.log(`server receive user list request`);
+    const query = {
+      str: `SELECT user_name, user_text, user_location, image_url FROM users`,
+      val: [],
+    };
+    const result: Array<JSON> = await databaseConnector(query);
+    res.json(result);
+    res.status(200);
   } catch (err) {
     console.log(err);
     res.sendStatus(500);
