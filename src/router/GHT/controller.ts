@@ -48,7 +48,15 @@ export const writeGHT = async (req: Request, res: Response) => {
         val: [userName, text, writen_when, image_url],
       };
       await databaseConnector(query);
-      res.sendStatus(200);
+
+      const id = await databaseConnector({
+        str: `SELECT id FROM GHT WHERE writer = $1 AND text = $2 AND writen_when = $3, image_url = $4`,
+        val: [userName, text, writen_when, image_url],
+      });
+      res.json({
+        id: id,
+      });
+      res.status(200);
     } else res.sendStatus(400);
   } catch (err) {
     console.log(err);

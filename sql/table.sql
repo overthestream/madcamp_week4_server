@@ -40,3 +40,19 @@ CREATE TABLE GHT_reply(
   foreign key (GHT_id) references GHT(id),
   foreign key (writer) references users(user_name)
 );
+
+CREATE TABLE appointment(
+  title varchar (60),
+  when2meet date,
+  location varchar(60),
+  id uuid DEFAULT uuid_generate_v4 (),
+  primary key(id)
+);
+
+CREATE TABLE attend(
+  id uuid,
+  user_name varchar(12),
+  primary key (id, user_name),
+  foreign key (id) references appointment(id),
+  foreign key (user_name) references users(user_name)
+);

@@ -3,7 +3,7 @@ import {
   putProfileImageCallback,
   putUserText,
   putUserLoc,
-  getUserList
+  getUserList,
 } from './controller';
 import uploadImage from '../../middleware/s3';
 import express from 'express';
