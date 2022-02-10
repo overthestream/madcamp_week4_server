@@ -43,8 +43,12 @@ CREATE TABLE GHT_reply(
 
 CREATE TABLE appointment(
   title varchar (60),
+  description varchar(200),
+  locX float,
+  locY float,
+  place_name varchar(60),
   when2meet date,
-  location varchar(60),
+  address varchar(100),
   id uuid DEFAULT uuid_generate_v4 (),
   primary key(id)
 );
